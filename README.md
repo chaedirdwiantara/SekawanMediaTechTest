@@ -1,3 +1,6 @@
+## 0: FILE APK LOCATION
+![Screenshot 2024-03-10 at 00 14 27](https://github.com/chaedirdwiantara/SekawanMediaTechTest/assets/64129000/14874157-be0c-4c00-9abf-331b67b5d765)
+
 ## 1: Loading Screen
 ![simulator_screenshot_372CF449-AC13-47F4-9991-2F23C059F79B](https://github.com/chaedirdwiantara/SekawanMediaTechTest/assets/64129000/9eee7b40-5f73-4651-abe3-ae0679b4a990)
 
