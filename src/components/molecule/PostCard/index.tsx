@@ -1,18 +1,16 @@
 import {StyleSheet, Text, TouchableOpacity} from 'react-native';
 import React from 'react';
-import {eployeeList} from '../../../interface/employeeList.interface';
 import {color} from '../../../theme';
 import {widthResponsive} from '../../../utils';
+import {postsListProps} from '../../../interface/post.interface';
 
-interface EmployeeCardProps {
-  data: eployeeList;
+interface PostCardProps {
+  data: postsListProps;
   onPress: () => void;
   disabled?: boolean;
 }
 
-const EmployeeCard: React.FC<EmployeeCardProps> = (
-  props: EmployeeCardProps,
-) => {
+const PostCard: React.FC<PostCardProps> = (props: PostCardProps) => {
   const {data, onPress, disabled = false} = props;
   return (
     <TouchableOpacity
@@ -20,13 +18,13 @@ const EmployeeCard: React.FC<EmployeeCardProps> = (
       style={styles.container}
       disabled={disabled}>
       <Text style={styles.textStyle} numberOfLines={1}>
-        {data.first_name} {data.last_name}
+        {data.title}
       </Text>
     </TouchableOpacity>
   );
 };
 
-export default EmployeeCard;
+export default PostCard;
 
 const styles = StyleSheet.create({
   container: {
@@ -36,7 +34,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: widthResponsive(10),
     marginHorizontal: widthResponsive(10),
-    width: widthResponsive(140),
   },
   textStyle: {
     color: color.Neutral[10],

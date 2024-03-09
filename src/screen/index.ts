@@ -1,7 +1,12 @@
-import FeedScreen from "./Feed";
+import DetailPost from "./DetailPost";
 import HomeScreen from "./Home";
-import AddEmployee from "./AddEmployee";
+import { LoginScreen } from "./Login";
+import { SplashScreen } from "./SplashScreen";
+import Profile from "./Profile";
 
 export {
-    HomeScreen,FeedScreen,AddEmployee
+    HomeScreen,
+    LoginScreen,
+    SplashScreen,
+    Profile
 }

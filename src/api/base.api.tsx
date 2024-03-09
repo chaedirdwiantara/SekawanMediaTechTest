@@ -10,9 +10,7 @@ let API: AxiosInstance;
 
 const setupAPIClient = () => {
   API = axios.create({
-    // TODO: FIX IT LATER
-    // baseURL: `${config.BASE_API}`,
-    baseURL: `https://employee-api-kappa.vercel.app`,
+    baseURL: `https://jsonplaceholder.typicode.com`,
     headers: {
       Accept: 'application/json',
       'Content-Type': 'application/json',

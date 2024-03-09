@@ -11,15 +11,17 @@ import {color, font} from '../theme';
 import {normalize} from '../utils/formatter';
 
 // Main
-import {FeedScreen, HomeScreen, AddEmployee} from '../screen';
+import {HomeScreen} from '../screen';
 
 // Screen
+import DetailPost from '../screen/DetailPost';
 import {LoginScreen} from '../screen/Login';
 import {SplashScreen} from '../screen/SplashScreen';
-import DetailEmployee from '../screen/DetailEmployee';
+import Profile from '../screen/Profile';
 
 // Icon
-import {FeedIcon, HomeIcon, ProfileIcon, SearchIcon} from '../assets/icon';
+import {HomeIcon, ProfileIcon, SearchIcon} from '../assets/icon';
+import {postsListProps} from '../interface/post.interface';
 
 // interface
 
@@ -27,13 +29,13 @@ export type RootStackParams = {
   SplashScreen: undefined;
   LoginScreen: undefined;
   MainTab: undefined;
-  DetailEmployee: {id: number};
+  DetailPost: {data: postsListProps};
 };
 
 export type MainTabParams = {
   Feed: undefined;
   Home: undefined;
-  AddEmployee: undefined;
+  Profile: undefined;
 };
 
 const screenOption: NativeStackNavigationOptions = {
@@ -73,28 +75,14 @@ const TabScreen = () => {
         }}
       />
       <MainTab.Screen
-        name="Feed"
-        component={FeedScreen}
+        name="Profile"
+        component={Profile}
         options={{
           tabBarIcon: ({color}) => (
             <View style={styles.root}>
-              <SearchIcon stroke={color} />
-              <Text style={[styles.label, {color}]}>{'Search'}</Text>
-            </View>
-          ),
-        }}
-      />
-      <MainTab.Screen
-        name="AddEmployee"
-        component={AddEmployee}
-        options={{
-          tabBarIcon: ({color}) => (
-            <TouchableOpacity
-              style={styles.root}
-              onPress={() => navigation.navigate('AddEmployee')}>
               <ProfileIcon stroke={color} />
-              <Text style={[styles.label, {color}]}>{'Add Employee'}</Text>
-            </TouchableOpacity>
+              <Text style={[styles.label, {color}]}>{'Profile'}</Text>
+            </View>
           ),
         }}
       />
@@ -110,7 +98,7 @@ export const RootStackScreen = () => (
     <RootStack.Screen name="MainTab" component={TabScreen} />
     <RootStack.Screen name="LoginScreen" component={LoginScreen} />
     <RootStack.Screen name="SplashScreen" component={SplashScreen} />
-    <RootStack.Screen name="DetailEmployee" component={DetailEmployee} />
+    <RootStack.Screen name="DetailPost" component={DetailPost} />
   </RootStack.Navigator>
 );
 

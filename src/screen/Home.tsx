@@ -1,44 +1,27 @@
-import {
-  ActivityIndicator,
-  FlatList,
-  RefreshControl,
-  SafeAreaView,
-  StyleSheet,
-  Text,
-  View,
-} from 'react-native';
-import React, {useCallback, useEffect, useState} from 'react';
+import {FlatList, RefreshControl, StyleSheet, View} from 'react-native';
+import React, {useEffect, useState} from 'react';
 import {color} from '../theme';
 import {widthResponsive} from '../utils';
-import {useListEmployeeHook} from '../hooks/use-employeeList.hook';
-import {
-  EmployeeCard,
-  Gap,
-  LoadingIndicator,
-  TopNavigation,
-} from '../components';
-import {useFocusEffect, useNavigation} from '@react-navigation/native';
+import {LoadingIndicator, PostCard, TopNavigation} from '../components';
+import {useNavigation} from '@react-navigation/native';
 import {NativeStackNavigationProp} from '@react-navigation/native-stack';
 import {RootStackParams} from '../navigations';
+import {useListPostsHook} from '../hooks/use-postList.hook';
+import {postsListProps} from '../interface/post.interface';
 
 const HomeScreen = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
-  const {isLoading, listEmployee, stopPagination, getListEmployee} =
-    useListEmployeeHook();
-  const [meta, setMeta] = useState<{page: number; size: number}>({
-    page: 0,
-    size: 15,
-  });
+  const {isLoading, getListPosts, listPosts} = useListPostsHook();
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   useEffect(() => {
-    getListEmployee({page: meta.page, size: meta.size, refresh: false});
+    getListPosts();
   }, []);
 
   useEffect(() => {
     if (refreshing) {
-      getListEmployee({page: 0, size: meta.size, refresh: true});
+      getListPosts();
     }
   }, [refreshing]);
 
@@ -48,28 +31,14 @@ const HomeScreen = () => {
     }
   }, [isLoading]);
 
-  const nextPage = () => {
-    getListEmployee({page: meta.page + 1, size: meta.size, refresh: false});
-    setMeta({
-      ...meta,
-      page: meta.page + 1,
-    });
-  };
-
-  const handleEndScroll = () => {
-    if (!stopPagination) {
-      nextPage();
-    }
-  };
-
-  const handleOnPress = (index: number) => {
-    navigation.navigate('DetailEmployee', {id: index});
+  const handleOnPress = (item: postsListProps) => {
+    navigation.navigate('DetailPost', {data: item});
   };
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TopNavigation.Type2
-        title="List Employee"
+        title="Post List"
         itemStrokeColor={color.Neutral[10]}
       />
       <View style={styles.bodyContainer}>
@@ -79,16 +48,15 @@ const HomeScreen = () => {
           </View>
         )}
         <FlatList
-          data={listEmployee}
+          data={listPosts}
           showsVerticalScrollIndicator={false}
           contentContainerStyle={styles.listContainer}
           keyExtractor={(_, index) => index.toString()}
           renderItem={({item, index}) => (
             <View style={{width: '100%'}}>
-              <EmployeeCard data={item} onPress={() => handleOnPress(index)} />
+              <PostCard data={item} onPress={() => handleOnPress(item)} />
             </View>
           )}
-          onEndReached={handleEndScroll}
           refreshControl={
             <RefreshControl
               refreshing={refreshing}
@@ -98,7 +66,7 @@ const HomeScreen = () => {
         />
         {isLoading && <LoadingIndicator size="small" />}
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 
