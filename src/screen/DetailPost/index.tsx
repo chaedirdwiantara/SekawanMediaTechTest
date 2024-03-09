@@ -23,11 +23,13 @@ const DetailPost = ({route}: PostDetailProps) => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
 
+  const data = route.params.data;
+
   const leftIconOnPress = () => {
     navigation.goBack();
   };
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
       <TopNavigation.Type1
         title="Detail Post"
         leftIconAction={leftIconOnPress}
@@ -35,26 +37,9 @@ const DetailPost = ({route}: PostDetailProps) => {
       />
 
       <View style={styles.bodyContainer}>
-        {/* <DetailCard
-            title={'Title'}
-            value={`${dataPost?.first_name} ${dataPost?.last_name}`}
-          />
-          <DetailCard
-            title={'Company Name'}
-            value={`${dataPost?.company_name}`}
-          />
-          <DetailCard
-            title={'City'}
-            value={`${dataPost?.city}, ${dataPost?.state}, ${dataPost?.county}`}
-          />
-          <DetailCard title={'Address'} value={`${dataPost?.address}`} />
-          <DetailCard title={'Email'} value={`${dataPost?.email}`} />
-          <DetailCard
-            title={'Phone Number'}
-            value={`${dataPost?.phone1}`}
-          /> */}
+        <DetailCard title={data.title} value={data.body} />
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

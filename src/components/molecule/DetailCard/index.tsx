@@ -1,9 +1,9 @@
 import {StyleSheet, Text, View} from 'react-native';
 import React from 'react';
-import {widthResponsive} from '../../../utils';
 import {color} from '../../../theme';
 import {mvs} from 'react-native-size-matters';
-import {Gap} from '../..';
+import {widthResponsive} from '../../../utils';
+import {Gap, TextCard} from '../..';
 
 type Props = {
   title: string;
@@ -13,36 +13,13 @@ type Props = {
 const DetailCard: React.FC<Props> = (props: Props) => {
   const {title, value} = props;
   return (
-    <View style={styles.root}>
-      <View style={styles.textContainer}>
-        <Text style={styles.textStyle} numberOfLines={1}>
-          {title}
-        </Text>
-      </View>
-      <View style={styles.valueStyle}>
-        <Text style={styles.textStyle}>:</Text>
-        <Gap width={8} />
-        <Text style={styles.textStyle}>{value}</Text>
-      </View>
+    <View>
+      <TextCard title={'Title'} value={title} />
+      <TextCard title={'Desc'} value={value} />
     </View>
   );
 };
 
 export default DetailCard;
 
-const styles = StyleSheet.create({
-  root: {
-    flexDirection: 'row',
-    marginBottom: widthResponsive(10),
-  },
-  textContainer: {
-    width: widthResponsive(90),
-  },
-  textStyle: {
-    color: color.Neutral[10],
-    fontSize: mvs(14),
-  },
-  valueStyle: {
-    flexDirection: 'row',
-  },
-});
+const styles = StyleSheet.create({});
