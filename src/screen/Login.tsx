@@ -16,31 +16,25 @@ import {ms, mvs} from 'react-native-size-matters';
 import {Button, Gap, InputText} from '../components';
 import {LockIcon, UserIcon} from '../assets/icon';
 import {widthResponsive, normalize} from '../utils';
-import {useAuthHook} from '../hooks/use-auth.hook';
 
 export const LoginScreen: React.FC = () => {
   const navigation =
     useNavigation<NativeStackNavigationProp<RootStackParams>>();
 
-  const {loginSuccess, isLoading, isError, onLoginUser} = useAuthHook();
-
   const [focusInput, setFocusInput] = useState<'email' | 'password' | null>(
     null,
   );
-  const [inputValue, setInputValue] = useState<string>('');
-  const [passValue, setPassValue] = useState<string>('');
-
-  useEffect(() => {
-    if (loginSuccess) {
-      navigation.replace('MainTab');
-    }
-  }, [loginSuccess]);
+  const [inputValue, setInputValue] = useState<string>('1234');
+  const [passValue, setPassValue] = useState<string>('1234');
+  const [isError, setIsError] = useState<boolean>(false);
 
   const handleOnLogin = () => {
-    onLoginUser({
-      username: inputValue,
-      password: passValue,
-    });
+    if (inputValue === '1234' && passValue === '1234') {
+      navigation.replace('MainTab');
+      setIsError(false);
+    } else {
+      setIsError(true);
+    }
   };
 
   const handleFocusInput = (focus: 'email' | 'password' | null) => {
